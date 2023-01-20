@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/income")
+@CrossOrigin
 public class IncomesController {
     private IncomeService incomeService;
 

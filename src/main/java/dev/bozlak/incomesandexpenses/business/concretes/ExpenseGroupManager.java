@@ -6,6 +6,7 @@ import dev.bozlak.incomesandexpenses.core.results.Result;
 import dev.bozlak.incomesandexpenses.core.results.SuccessResult;
 import dev.bozlak.incomesandexpenses.dtos.concretes.ExpenseGroup.CreateExpenseGroupRequest;
 import dev.bozlak.incomesandexpenses.dtos.concretes.ExpenseGroup.ExpenseGroupGetAllColumnResponse;
+import dev.bozlak.incomesandexpenses.dtos.concretes.ExpenseGroup.ExpenseGroupIdAndNameResponse;
 import dev.bozlak.incomesandexpenses.dtos.concretes.ExpenseGroup.UpdateExpenseGroupRequest;
 import dev.bozlak.incomesandexpenses.entities.concretes.ExpenseGroup;
 import dev.bozlak.incomesandexpenses.repositories.abstracts.ExpenseGroupRepository;
@@ -73,5 +74,18 @@ public class ExpenseGroupManager implements ExpenseGroupService {
         expenseGroupGetAllColumnResponse.setExpenseGroupName(expenseGroup.getExpenseGroupName());
         expenseGroupGetAllColumnResponse.setDescription(expenseGroup.getDescription());
         return expenseGroupGetAllColumnResponse;
+    }
+
+    @Override
+    public List<ExpenseGroupIdAndNameResponse> getAllExpenseGroupIdAndNameResponses() {
+        List<ExpenseGroup> expenseGroups = this.expenseGroupRepository.findAll();
+        List<ExpenseGroupIdAndNameResponse> expenseGroupIdAndNameResponses = new ArrayList<>();
+        expenseGroups.forEach(expenseGroup -> {
+            ExpenseGroupIdAndNameResponse expenseGroupIdAndNameResponse = new ExpenseGroupIdAndNameResponse();
+            expenseGroupIdAndNameResponse.setExpenseGroupId(expenseGroup.getExpenseGroupId());
+            expenseGroupIdAndNameResponse.setExpenseGroupName(expenseGroup.getExpenseGroupName());
+            expenseGroupIdAndNameResponses.add(expenseGroupIdAndNameResponse);
+        });
+        return expenseGroupIdAndNameResponses;
     }
 }
